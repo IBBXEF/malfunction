@@ -81,6 +81,7 @@ let parse_args args =
       if mode = `Compile then (opts := `Linkpkg :: !opts; parse_opts mode rest)
       else usage ()
     | "-g" :: rest -> opts := `Debug :: !opts; parse_opts mode rest
+    | "-rectypes" :: rest -> opts := `Rectypes :: !opts; parse_opts mode rest
     | "-thread" :: rest -> 
         if mode = `Compile then (opts := `Thread :: !opts; parse_opts mode rest)
         else usage ()

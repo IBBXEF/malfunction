@@ -676,6 +676,7 @@ let setup_options options =
   | `Dontlink _ -> ()
   | `Linkpkg -> ()
   | `Debug -> Clflags.debug := true
+  | `Rectypes -> Clflags.recursive_types := true
   | `Thread -> ()
   | `Optimize ->   Clflags.(
     default_simplify_rounds := 2;
@@ -776,7 +777,7 @@ let delete_temps outfiles =
   in
   List.iter Misc.remove_file temps
 
-type options = [`Verbose | `Shared | `ForPack of string | `Include of string | `Package of string | `Dontlink of string | `Linkpkg | `Debug | `Thread | `Optimize | `Bytecode] list
+type options = [`Verbose | `Shared | `ForPack of string | `Include of string | `Package of string | `Dontlink of string | `Linkpkg | `Debug | `Rectypes | `Thread | `Optimize | `Bytecode] list
 
 let ensure_cmi ~module_name ~filename =
   let cmi = module_name ^ ".cmi" in
