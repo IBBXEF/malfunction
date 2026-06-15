@@ -376,7 +376,19 @@ let rec to_lambda env = function
   | Mvar v ->
      Lvar v
   | Mlambda (params, e) ->
-     lfunction params (to_lambda env e)
+     if List.length params > max_arity () then
+        (* we have to split the function *)
+        let rec extractk k xs = match k, xs with
+         | 0, xs -> [], xs
+         | _, [] -> failwith "extractk"
+         | k, x::xs ->
+            let first, last = extractk (k-1) xs in
+            x::first, last in
+        let params1, params2 = extractk (max_arity ()) params in
+        let e = Mlambda (params2, e) in
+        lfunction params1 (to_lambda env e)
+     else
+        lfunction params (to_lambda env e)
   | Mapply (fn, args) ->
      let ap_func fn = lapply fn (List.map (to_lambda env) args) in
      (match fn with
