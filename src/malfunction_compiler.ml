@@ -455,7 +455,7 @@ let rec to_lambda env = function
               | [_,e] -> Some e
               | ints -> Some (IntSwitch.compile_int_switch scr ints) in
             match intswitch, tagswitch with
-            | None, None -> assert false
+            | None, None -> failwith "switch case has no branches"
             | None, Some e | Some e, None -> e
             | Some eint, Some etag ->
                Lifthenelse (lprim Pisint [scr], eint, etag)) in
