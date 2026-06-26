@@ -19,7 +19,7 @@ type block_tag = int
 type case = [`Tag of int | `Deftag | `Intrange of int * int]
 
 
-let max_tag = 200
+let max_tag = 256
 let tag_of_int n =
   if 0 <= n && n < max_tag then
     n
