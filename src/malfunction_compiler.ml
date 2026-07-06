@@ -694,6 +694,9 @@ let setup_options options =
     default_simplify_rounds := 2;
     use_inlining_arguments_set o2_arguments;
     use_inlining_arguments_set ~round:0 o1_arguments);
+  | `Oclassic ->   Clflags.(
+    classic_inlining := true
+    )
   | `Bytecode -> Clflags.native_code := false
    );
   (* FIXME: should we use classic_arguments for non-flambda builds? *)
@@ -789,7 +792,7 @@ let delete_temps outfiles =
   in
   List.iter Misc.remove_file temps
 
-type options = [`Verbose | `Shared | `ForPack of string | `Include of string | `Package of string | `Dontlink of string | `Linkpkg | `Debug | `Rectypes | `Thread | `Optimize | `Bytecode] list
+type options = [`Verbose | `Shared | `ForPack of string | `Include of string | `Package of string | `Dontlink of string | `Linkpkg | `Debug | `Rectypes | `Thread | `Optimize | `Oclassic | `Bytecode] list
 
 let ensure_cmi ~module_name ~filename =
   let cmi = module_name ^ ".cmi" in
